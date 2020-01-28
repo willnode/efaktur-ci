@@ -8,7 +8,7 @@ class Admin extends CI_Controller {
 		if ($this->session->role !== 'admin') {
 			redirect('login');
 		} else {
-			$this->current_id = $this->session->id_admin;
+			$this->current_id = $this->session->login_id;
 		}
 	}
 
@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
 	public function dashboard()
 	{
 		load_view('admin/dashboard', [
-			'profile' => $this->db->get_where('admin', ['id_admin' => $this->current_id])->row(),
+			'profile' => $this->db->get_where('login', ['login_id' => $this->session->login_id])->row(),
 		]);
 	}
 

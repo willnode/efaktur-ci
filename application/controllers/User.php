@@ -8,7 +8,7 @@ class User extends CI_Controller {
 		if ($this->session->role !== 'user') {
 			redirect('login');
 		} else {
-			$this->current_id = $this->session->id_user;
+			$this->current_id = $this->session->login_id;
 		}
 	}
 
@@ -20,8 +20,8 @@ class User extends CI_Controller {
 	public function dashboard()
 	{
 		load_view('user/dashboard', [
-			'profile' => $this->db->get_where('user', ['id_user' => $this->current_id])->row(),
-		]);
+			'profile' => $this->db->get_where('login', ['login_id' => $this->session->login_id])->row(),
+			]);
 	}
 
 	public function profile($action='edit')

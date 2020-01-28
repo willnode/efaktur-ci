@@ -23,6 +23,7 @@ class Home extends CI_Controller {
 			$result = $login->result();
 			if (count( $result ) > 0 && password_verify($password, $result[0]->password)) {
 				$user = $result[0];
+				$this->session->login_id = $user->login_id;
 				$this->session->username = $user->username;
 				$this->session->role = $user->role;
 				redirect($user->role);
