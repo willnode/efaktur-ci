@@ -1,15 +1,15 @@
 <div class="app-sidebar colored">
-	<div class="sidebar-header">
-		<a class="header-brand" href="<?=base_url('admin/')?>">
+<div class="sidebar-header">
+		<a class="header-brand" href="<?=base_url('user/')?>">
 			<div class="logo-img">
-				<img src="<?=base_url('assets/logo.png')?>" class="header-brand-img w-100" alt="lavalite"> 
+				<img src="<?=base_url('assets/logo.png')?>" class="header-brand-img w-100" alt="lavalite">
 			</div>
 			<span class="text">EFAKTUR</span>
 		</a>
-		<button type="button" class="nav-toggle"><i data-toggle="collapsed" class="ik toggle-icon ik-toggle-left"></i></button>
+		<button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik toggle-icon ik-toggle-right"></i></button>
 		<button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
 	</div>
-	
+
 	<div class="sidebar-content">
 		<div class="nav-container">
 			<nav id="main-menu-navigation" class="navigation-main">

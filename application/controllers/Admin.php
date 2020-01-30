@@ -5,9 +5,7 @@ class Admin extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		if ($this->session->role !== 'admin') {
-			redirect('login');
-		} else {
+		if (check_role('admin')) {
 			$this->current_id = $this->session->login_id;
 		}
 	}
@@ -29,7 +27,7 @@ class Admin extends CI_Controller {
 		if ($action == 'list') {
 			load_view('admin/list/user');
 		} else if ($action == 'get') {
-			load_json(ajax_table_driver('user', [], ['name_user', 'email_user']));
+			load_json(ajax_table_driver('login', ['role'=>'user'], ['name', 'hp']));
 		} else if ($action == 'create') {
 			load_view('admin/edit/user', [
 				'data' => (object)[
@@ -44,11 +42,12 @@ class Admin extends CI_Controller {
 		} else if ($action == 'edit') {
 			load_view('admin/edit/user', [
 				'data' => $this->db->from('login')
-					->where(["login.id_login" => $id])
+					->where(["login_id" => $id])
 					->get()->row(),
 			]);
 		} else if ($action == 'delete') {
-			$this->db->delete('login', ['id_login' => $id]);
+			$this->db->delete('login', ['login_id' => $id]);
+			set_message('Penghapusan berhasil');
 			redirect('admin/user/');
 		} else if ($action == 'update') {
 			if (run_validation([
@@ -60,12 +59,18 @@ class Admin extends CI_Controller {
 				$data = get_post_updates(['name', 'hp', 'username', 'password']);
 				if (isset($data['password']))
 					$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+				catch_db_error();
 				if ($id == 0) {
 					$this->db->insert('login', $data);
 				} else {
-					$this->db->update('login', $data, ['id_login' => $id]);
+					$this->db->update('login', $data, ['login_id' => $id]);
 				}
-				redirect('admin/user/');
+				if (check_db_error()) {
+					$this->user($id == 0 ? 'create' : 'edit', $id);
+				} else {
+					set_message($id == 0 ? 'Berhasil di tambah' : 'Berhasil di update');
+					redirect('admin/user/');
+				}
 			} else {
 				$this->user($id == 0 ? 'create' : 'edit', $id);
 			}
@@ -77,7 +82,7 @@ class Admin extends CI_Controller {
 		if ($action == 'list') {
 			load_view('admin/list/dokumen');
 		} else if ($action == 'get') {
-			load_json(ajax_table_driver('user', [], ['name_user', 'email_user']));
+			load_json(ajax_table_driver('dokumen', [], ['dokumen_nama', 'dokumen_file']));
 		} else if ($action == 'create') {
 			load_view('admin/edit/dokumen', [
 				'data' => (object)[

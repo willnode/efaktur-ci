@@ -12,24 +12,8 @@ class Home extends CI_Controller {
 
 	public function login()
 	{
-		if (isset($this->session->role)) {
-			redirect($this->session->role);
-		}
-
-		if ($this->input->method() == 'post') {
-			$username = $this->input->post('username');
-			$password = $this->input->post('password');
-			$login = $this->db->get_where('login', ['username' => $username]);
-			$result = $login->result();
-			if (count( $result ) > 0 && password_verify($password, $result[0]->password)) {
-				$user = $result[0];
-				$this->session->login_id = $user->login_id;
-				$this->session->username = $user->username;
-				$this->session->role = $user->role;
-				redirect($user->role);
-			} else {
-				redirect("login");
-			}
+		if (authenticate()) {
+			redirect(issetor($this->input->get('redirect'), $this->session->role));
 		} else {
 			$this->load->view('static/header');
 			$this->load->view('static/login');

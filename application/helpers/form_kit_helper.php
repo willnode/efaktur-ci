@@ -44,7 +44,7 @@ function control_input($attr) {
 }
 
 function control_submit() {
-    control_input(['type'=>'submit', 'class'=>'form-control btn btn-primary', 'value'=>"Submit"]);
+    control_input(['name'=>'form_submit','type'=>'submit', 'class'=>'form-control btn btn-primary bg-primary', 'value'=>"Submit"]);
 }
 
 function control_textarea($attr) {

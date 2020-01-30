@@ -1,5 +1,3 @@
-<?php $role = $this->session->userdata('role')?>
-<?php $username = $this->session->userdata('username')?>
 <!DOCTYPE HTML>
 <html lang="id">
 <head>
@@ -24,30 +22,41 @@
 <body class="">
 <div class="wrapper">
 <header class="header-top" header-theme="light">
-                <div class="container-fluid">
-                    <div class="d-flex justify-content-between">
-                        <div class="top-menu d-flex align-items-center">
-                  
-                        </div>
-                        <div class="top-menu d-flex align-items-center">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="img/user.jpg" alt=""></a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="pages/profile.html"><i class="ik ik-user dropdown-icon"></i> Profile</a>
-                                    <a class="dropdown-item" href="#"><i class="ik ik-settings dropdown-icon"></i> Settings</a>
-                                    <a class="dropdown-item" href="#"><span class="float-right"><span class="badge badge-primary">6</span></span><i class="ik ik-mail dropdown-icon"></i> Inbox</a>
-                                    <a class="dropdown-item" href="#"><i class="ik ik-navigation dropdown-icon"></i> Message</a>
-                                    <a class="dropdown-item" href="pages/login.html"><i class="ik ik-power dropdown-icon"></i> Logout</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </header>
+  <div class="container-fluid">
+      <div class="d-flex justify-content-between">
+          <div class="top-menu d-flex align-items-center">
+            <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
+          </div>
+          <div class="top-menu d-flex align-items-center">
+              <div class="dropdown">
+                  <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+                    <img class="avatar" src="<?= base_url(empty($avatar) ? 'assets/user.png' : 'uploads/avatar/'.$avatar) ?>" alt="">
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                      <a class="dropdown-item" href="<?=base_url('logout')?>"><i class="ik ik-power dropdown-icon"></i> Logout</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
 
 
 <div class="page-wrap">
   <?php $this->load->view("$role/sidebar", ['username' => $username])?>
   <main class="main-content">
     <div class="container-fluid">
+
+      <?php if (isset($this->session->error)) : ?>
+      <div class="alert alert-danger" role="alert">
+        <?= $this->session->error ?>
+      </div>
+      <?php endif ?>
+      <?php if (isset($this->session->message)) : ?>
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <?= $this->session->message ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <?php endif ?>

@@ -4,5 +4,9 @@ body {
 }
 
 .form-control[type="file"] {
-    padding-bottom: 2.5em;
+    padding: .375rem .75rem;
+}
+
+.btn i {
+	margin-right: 0 !important;
 }
