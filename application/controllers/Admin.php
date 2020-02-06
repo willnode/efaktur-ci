@@ -90,11 +90,12 @@ class Admin extends CI_Controller {
 		} else if ($action == 'create') {
 			load_view('admin/dokumen/edit', [
 				'data' => (object)[
-					'login_id' => 0,
-					'dokumen_nana' => '',
+					'dokumen_id' => 0,
+					'dokumen_nama' => '',
 					'dokumen_file' => '',
 					'dokumen_tgl' => '',
-					'login_id' => '',
+					'login_id' => $this->input->get('login_id'),
+					'profile' => $this->db->get_where('login', ['login_id' => $this->input->get('login_id')])->row()
 				]
 			]);
 		} else if ($action == 'edit') {
@@ -110,7 +111,7 @@ class Admin extends CI_Controller {
 			if (run_validation([
 				['dokumen_nama', 'Nama', 'required'],
 			])) {
-				$data = get_post_updates(['dokumen_nama', 'hp', 'username', 'password']);
+				$data = get_post_updates(['dokumen_nama', 'login_id']);
 				control_file_upload($data, 'dokumen_file', 'dokumen',
 					$this->db->get_where('dokumen', ['dokumen_id' => $id])->row()->dokumen_file,
 					'doc|docx|xls|xlsx|csv|pdf');
@@ -121,7 +122,7 @@ class Admin extends CI_Controller {
 				}
 				redirect('admin/dokumen/');
 			} else {
-				$this->user($id == 0 ? 'create' : 'edit', $id);
+				$this->dokumen($id == 0 ? 'create' : 'edit', $id);
 			}
 		} else {
 			show_404();

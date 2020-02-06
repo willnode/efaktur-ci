@@ -12,11 +12,11 @@
                             <div class="logo-centered">
                                 <a href="<?=base_url()?>"><img src="../src/img/brand.svg" alt=""></a>
                             </div>
-                            <h3>Sign In to ThemeKit</h3>
-                            <p>Happy to see you again!</p>
+                            <h3>Silahkan Login</h3>
+                            
                             <form method="post">
                                 <div class="form-group">
-                                    <input type="text" name="username" class="form-control" placeholder="Email" required="" value="">
+                                    <input type="text" name="username" class="form-control" placeholder="Username" required="" value="">
                                     <i class="ik ik-user"></i>
                                 </div>
                                 <div class="form-group">
@@ -24,7 +24,7 @@
                                     <i class="ik ik-lock"></i>
                                 </div>
                                 <div class="sign-btn text-center">
-                                    <button class="btn btn-theme">Sign In</button>
+                                    <button class="btn btn-theme">Login</button>
                                 </div>
                             </form>
                         </div>

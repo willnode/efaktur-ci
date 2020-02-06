@@ -55,11 +55,14 @@ function control_file_upload(&$updates, $name, $folder, $existing_value = '', $t
         if ($ci->upload->do_upload($name)) {
 			$updates[$name] = $ci->upload->file_name;
 			control_file_delete($folder, $existing_value);
+			return TRUE;
 		}
     } elseif ($ci->input->post($name.'_delete')) {
 		$updates[$name] = '';
 		control_file_delete($folder, $existing_value);
+		return TRUE;
 	}
+	return FALSE;
 }
 
 function control_password_update(&$updates, $field = 'password') {

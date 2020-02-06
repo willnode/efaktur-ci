@@ -1,11 +1,11 @@
 <?php if (isset($profile)) : ?>
 <h1><?=$profile->name?></h1>
 <p class='text-muted'><?=$profile->hp?></p>
-<?php endif ?>
 
 <div id="toolbar">
-  <a href="create" class="btn btn-success ml-2"><i class="fa fa-plus mr-2"></i>New</a>
+  <a href="create?login_id=<?=$profile->login_id?>" class="btn btn-success ml-2"><i class="fa fa-plus mr-2"></i> Tambah Baru</a>
 </div>
+<?php endif ?>
 
 <table
   id="table"
@@ -23,7 +23,7 @@
 	  <th data-field="dokumen_tgl" data-width="200">Upload</th>
       <th data-field="dokumen_nama">Nama</th>
       <th
-        data-field="id_dokumen"
+        data-field="dokumen_id"
         data-formatter="actionFormat"
         data-width="150"
         data-align="center"
@@ -33,10 +33,10 @@
 </table>
 
 <script>
-function actionFormat(value) {
+function actionFormat(value, data) {
 	return `
-	<a download href="<?=base_url('dokumen/${value}')?>" class="btn btn-sm btn-success"><i class="fa fa-download"></i></a>
-	<a href="delete/${value}" onclick="return confirm('Are you sure?')"
+	<a download href="<?=base_url('uploads/dokumen/${data.dokumen_file}')?>" class="btn btn-sm btn-success"><i class="fa fa-download"></i></a>
+	<a href="delete/${value}" onclick="return confirm('Apakah Anda Yakin ?')"
 	class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
 	`;
 }

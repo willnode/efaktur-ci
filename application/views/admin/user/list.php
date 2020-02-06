@@ -1,6 +1,6 @@
 
 <div id="toolbar">
-  <a href="create" class="btn btn-success ml-2"><i class="fa fa-plus mr-2"></i>New</a>
+  <a href="create" class="btn btn-success ml-2"><i class="fa fa-plus mr-2"></i> Tambah Baru</a>
 </div>
 
 <table
@@ -16,14 +16,14 @@
   >
   <thead>
     <tr>
-      <th data-field="name">Name</th>
-      <th data-field="hp">HP</th>
+      <th data-field="name">Nama</th>
+      <th data-field="hp">Nomor HP</th>
       <th
         data-field="login_id"
         data-formatter="actionFormat"
         data-width="150"
         data-align="center"
-        >Action</th>
+        >Aksi</th>
     </tr>
   </thead>
 </table>
@@ -33,7 +33,7 @@ function actionFormat(value) {
 	return `
 	<a href="detail/${value}" class="btn btn-sm btn-success"><i class="fa fa-external-link"></i></a>
 	<a href="edit/${value}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-	<a href="delete/${value}" onclick="return confirm('Are you sure?')"
+	<a href="delete/${value}" onclick="return confirm('Apakah Anda Yakin ?')"
 	class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
 	`;
 }
