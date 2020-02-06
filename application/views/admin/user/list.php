@@ -31,7 +31,7 @@
 <script>
 function actionFormat(value) {
 	return `
-	<a href="detail/${value}" class="btn btn-sm btn-success"><i class="fa fa-external-link"></i></a>
+	<a href="detail/${value}" class="btn btn-sm btn-success"><i class="fa fa-files-o"></i></a>
 	<a href="edit/${value}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
 	<a href="delete/${value}" onclick="return confirm('Apakah Anda Yakin ?')"
 	class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>

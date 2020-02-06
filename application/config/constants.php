@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /*
 | Title of Application
 */
-defined('TITLE') OR define('TITLE', 'CMS Toolkit with CoreUI');
+defined('TITLE') OR define('TITLE', 'E-Faktur Andalan Pacific Samudra');
 
 /*
 |--------------------------------------------------------------------------
