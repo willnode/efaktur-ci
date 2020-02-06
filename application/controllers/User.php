@@ -50,6 +50,8 @@ class User extends CI_Controller {
 			} else {
 				$this->profil();
 			}
+		} else {
+			show_404();
 		}
 	}
 

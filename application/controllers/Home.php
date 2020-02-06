@@ -5,9 +5,7 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/home');
-		$this->load->view('static/footer');
+		redirect('login');
 	}
 
 	public function login()

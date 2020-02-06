@@ -1,3 +1,11 @@
+<?php if (isset($profile)) : ?>
+<h1><?=$profile->name?></h1>
+<p class='text-muted'><?=$profile->hp?></p>
+<?php endif ?>
+
+<div id="toolbar">
+  <a href="create" class="btn btn-success ml-2"><i class="fa fa-plus mr-2"></i>New</a>
+</div>
 
 <table
   id="table"
@@ -7,12 +15,12 @@
   data-search="true"
   data-side-pagination="server"
   data-pagination="true"
-  data-url="get"
+  data-url="get?login_id=<?=$this->input->get('login_id')?>"
   class="table-sm"
   >
   <thead>
     <tr>
-	  <th data-field="dokumen_tgl" data-width="100">Upload</th>
+	  <th data-field="dokumen_tgl" data-width="200">Upload</th>
       <th data-field="dokumen_nama">Nama</th>
       <th
         data-field="id_dokumen"

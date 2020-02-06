@@ -25,11 +25,11 @@ class Admin extends CI_Controller {
 	public function user($action='list', $id=0)
 	{
 		if ($action == 'list') {
-			load_view('admin/list/user');
+			load_view('admin/user/list');
 		} else if ($action == 'get') {
 			load_json(ajax_table_driver('login', ['role'=>'user'], ['name', 'hp']));
 		} else if ($action == 'create') {
-			load_view('admin/edit/user', [
+			load_view('admin/user/edit', [
 				'data' => (object)[
 					'login_id' => 0,
 					'username' => '',
@@ -40,7 +40,7 @@ class Admin extends CI_Controller {
 				]
 			]);
 		} else if ($action == 'edit') {
-			load_view('admin/edit/user', [
+			load_view('admin/user/edit', [
 				'data' => $this->db->from('login')
 					->where(["login_id" => $id])
 					->get()->row(),
@@ -49,6 +49,8 @@ class Admin extends CI_Controller {
 			$this->db->delete('login', ['login_id' => $id]);
 			set_message('Penghapusan berhasil');
 			redirect('admin/user/');
+		} else if ($action == 'detail') {
+			redirect('admin/dokumen/?login_id='.urlencode($id));
 		} else if ($action == 'update') {
 			if (run_validation([
 				['name', 'Nama', 'required'],
@@ -80,11 +82,13 @@ class Admin extends CI_Controller {
 	public function dokumen($action='list', $id=0)
 	{
 		if ($action == 'list') {
-			load_view('admin/list/dokumen');
+			load_view('admin/dokumen/list', $this->input->get('login_id') ? [
+				'profile' => $this->db->get_where('login', ['login_id' => $this->input->get('login_id')])->row()
+			]: []);
 		} else if ($action == 'get') {
 			load_json(ajax_table_driver('dokumen', [], ['dokumen_nama', 'dokumen_file']));
 		} else if ($action == 'create') {
-			load_view('admin/edit/dokumen', [
+			load_view('admin/dokumen/edit', [
 				'data' => (object)[
 					'login_id' => 0,
 					'dokumen_nana' => '',
@@ -94,7 +98,7 @@ class Admin extends CI_Controller {
 				]
 			]);
 		} else if ($action == 'edit') {
-			load_view('admin/edit/dokumen', [
+			load_view('admin/dokumen/edit', [
 				'data' => $this->db->from('dokumen')
 					->where(["dokumen.dokumen_id" => $id])
 					->get()->row(),
@@ -119,6 +123,8 @@ class Admin extends CI_Controller {
 			} else {
 				$this->user($id == 0 ? 'create' : 'edit', $id);
 			}
+		} else {
+			show_404();
 		}
 	}
 }

@@ -24,6 +24,15 @@ function get_post_updates($vars = [], $default = []) {
 	return $updates;
 }
 
+function get_default_values($table) {
+	$fields = get_instance()->db->list_fields($table);
+	$values = [];
+	foreach ($fields as $f) {
+		$values[$f] = $f === $table.'_id' ? 0 : '';
+	}
+	return $values;
+}
+
 function control_file_delete($folder, $existing_value = '')
 {
 	$existing_file = "./uploads/$folder/$existing_value";
@@ -113,10 +122,10 @@ function load_json($data) {
 
 function load_view($mainview, $data = []) {
 	$ci = &get_instance();
-	if ($ci->input->get('ajax')) {
+	if (isset($_GET['debug']) && ENVIRONMENT !== 'production') {
 		load_json($data);
 	} else {
-		$ci->load->view('widget/header', $ci->session->all_userdata());
+		$ci->load->view('widget/header', $_SESSION);
 		$ci->load->view($mainview, $data);
 		$ci->load->view('widget/footer');
 		$ci->session->unset_userdata('error');
